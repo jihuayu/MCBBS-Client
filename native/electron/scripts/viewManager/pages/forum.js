@@ -50,8 +50,8 @@ class Forum extends React.Component {
           {testData.forums[this.props.forum].name}
         </Typography>
         <Paper className={classes.paper}>
-        
-          <div dangerouslySetInnerHTML={{ __html: testData.forums[this.props.forum].info }}></div>
+
+          <div dangerouslySetInnerHTML={{__html: testData.forums[this.props.forum].info}}/>
         </Paper>
         <List component="nav">
           {testData.forums[this.props.forum].threads.map((n, id) => (

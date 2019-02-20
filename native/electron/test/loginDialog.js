@@ -6,8 +6,12 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { withStyles } from "@material-ui/core/styles";
+const styles = theme => ({
 
-export default class LoginDialog extends React.Component {
+});
+class LoginDialog extends React.Component {
+
   state = {
     open: this.props.open ,
   };
@@ -21,12 +25,14 @@ export default class LoginDialog extends React.Component {
   };
 
   render() {
+    const { classes } = this.props;
     return (
         <div>
           <Dialog
               open={this.state.open}
               onClose={this.handleClose}
               aria-labelledby="form-dialog-title"
+              className={classes.loginDialog}
           >
             <DialogTitle id="form-dialog-title">登陆</DialogTitle>
             <DialogContent>
@@ -60,3 +66,4 @@ export default class LoginDialog extends React.Component {
     );
   }
 }
+export default withStyles(styles)(LoginDialog);
