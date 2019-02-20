@@ -8,13 +8,13 @@ matrix:
     install:
     - cd native/electron
     - npm i
-    - cd ../../scripts
-    - npm i
-    - cd ..
+    # - cd ../../scripts
+    # - npm i
+    # - cd ..
     script:
     # - cd scripts
     # - npm run build
-    - cd ../native/electron
+    # - cd ../native/electron
     - npm run build
     - npm run package:mac
     - cd ../..
@@ -22,13 +22,13 @@ matrix:
     install:
     - cd native/electron
     - npm i
-    - cd ../../scripts
-    - npm i
-    - cd ..
+    # - cd ../../scripts
+    # - npm i
+    # - cd ..
     script:
     # - cd scripts
     # - npm run build
-    - cd ../native/electron
+    # - cd ./native/electron
     - npm run build
     - npm run package:windows
     - cd ../..
