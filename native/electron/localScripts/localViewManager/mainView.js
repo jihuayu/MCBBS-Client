@@ -9,6 +9,7 @@ const { ipcRenderer, shell } = electron;
 const remote = electron.remote;
 
 import React, { useCallback } from "react";
+import Reflux from "reflux";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import shortid from "shortid";
@@ -66,16 +67,17 @@ import DatabaseIcon from "mdi-material-ui/Database";
 import CustomScroll from "react-custom-scroll";
 import JsonView from "react-json-view";
 
-import MainPageRender from "../../scripts/viewManager/pages/mainPage";
-import WatchThreadRender from "../../scripts/viewManager/pages/watchThread";
-import ForumRender from "../../scripts/viewManager/pages/forum";
+import MainPageRender from "../../../../scripts/srcJs/viewManager/pages/mainPage";
+import WatchThreadRender from "../../../../scripts/srcJs/viewManager/pages/watchThread";
+import ForumRender from "../../../../scripts/srcJs/viewManager/pages/forum";
 import WebviewRender from "../localWebView/webviewRender";
-import LoginRender from "../../scripts/viewManager/pages/login";
+import LoginRender from "../../../../scripts/srcJs/viewManager/pages/login";
 
-import TestData from "../../scripts/viewManager/testData";
-import pageBindScript from "../../scripts/forumWorker/pageBindScript";
+import TestData from "../../../../scripts/srcJs/viewManager/testData";
+import pageBindScript from "../../../../scripts/srcJs/forumWorker/pageBindScript";
 import db from "../localDatabase/database";
-import conf from '../localConfiguration/conf'
+import reflux from "../localDatabase/reflux";
+
 const drawerWidth = 200;
 
 const styles = theme => ({
@@ -174,7 +176,7 @@ newTag({
 });
 
 // 窗口主体
-class MainWindow extends React.Component {
+class MainWindow extends Reflux.Component {
   state = {
     leftBarType: "main",
     tag: "mainPage",
@@ -223,7 +225,7 @@ class MainWindow extends React.Component {
     return () => {
       let where = tags.indexOf(id);
       let selecting = tags.indexOf(this.state.tag);
-      if(where === selecting) where = 0;
+      if (where === selecting) where = 0;
 
       tags.splice(id, 1);
       this.setState({
@@ -414,8 +416,8 @@ class MainWindow extends React.Component {
                     <ListItemText primary="数据库调试" />
                   </ListItem>
                   <ListItem button
-                            onClick={this.handleCreateTagSelector("test") }
-                              selected={this.state.tag === "test"} >
+                    onClick={this.handleCreateTagSelector("test")}
+                    selected={this.state.tag === "test"} >
                     <DatabaseIcon />
                     <ListItemText primary="测试功能" />
                   </ListItem>
@@ -493,7 +495,7 @@ class MainWindow extends React.Component {
             {
               (this.state.tag === "mainPage" && <MainPageRender />) ||
               (this.state.tag === "login" && <LoginRender />) ||
-              (this.state.tag === "test" && <Test/>)||
+              (this.state.tag === "test" && <Test />) ||
               (
                 <div key={this.state.tag}>
                   {tags.find(n => this.state.tag === n.key).render}
@@ -507,10 +509,47 @@ class MainWindow extends React.Component {
           >
             <DialogTitle>关于</DialogTitle>
             <DialogContent>
-              <DialogContentText>
-                <Typography variant="subtitle1">作者：langyo</Typography>
-                <Typography variant="subtitle1">当前版本：0.2.2</Typography>
-              </DialogContentText>
+              <Typography paragraph variant="p">
+                {"贡献者"}
+              </Typography>
+              <Typography paragraph variant="body1">
+                {"@langyo "}
+                <Button onClick={() => shell.openExternal("http://www.mcbbs.net/?1287472")}>MCBBS</Button>{" "}
+                <Button onClick={() => shell.openExternal("https://github.com/langyo")}>GitHub</Button>{" "}
+                <Button onClick={() => shell.openExternal("https://afdian.net/@langyo")}>爱发电</Button>
+              </Typography>
+              <Typography paragraph variant="body1">
+                {"@simon300000 "}
+                <Button onClick={() => shell.openExternal("http://www.mcbbs.net/?155499")}>MCBBS</Button>{" "}
+                <Button onClick={() => shell.openExternal("https://github.com/simon300000")}>GitHub</Button>
+              </Typography>
+              <Typography paragraph variant="body1">
+                {"@纪华裕 "}
+                <Button onClick={() => shell.openExternal("http://www.mcbbs.net/?2460223")}>MCBBS</Button>{" "}
+                <Button onClick={() => shell.openExternal("https://github.com/jihuayu")}>GitHub</Button>
+              </Typography>
+              <Typography paragraph variant="body1">
+                <Button
+                  className={classes.button}
+                  variant="outlined"
+                  color="primary"
+                  onClick={() => shell.openExternal("https://github.com/langyo/MCBBS-Client")}
+                >
+                  {"该项目在 GitHub 的开源仓库地址"}
+                </Button>
+                <Button
+                  className={classes.button}
+                  variant="outlined"
+                  color="primary"
+                  disabled
+                  onClick={() => shell.openExternal("http://www.mcbbs.net/")}
+                >
+                  {"该项目在 MCBBS 的发布贴"}
+                </Button>
+              </Typography>
+              <Typography paragraph variant="p">
+                {"当前版本 0.2.4"}
+              </Typography>
             </DialogContent>
             <DialogActions>
               <Button onClick={this.handleCloseAboutDialog} color="primary">

@@ -1,18 +1,26 @@
 import React from "react";
+import Reflux from "reflux";
 import PropTypes from "prop-types";
 
 import shortid from "shortid";
 
 import db from "../localDatabase/database";
+import reflux from "../localDatabase/reflux";
 
-class WebView extends React.Component {
+class WebView extends Reflux.Component {
+  constructor(props){
+    super(props);
+    console.log("n:", reflux)
+    this.stores = reflux.stores;
+  }
+
   timeoutObject;
   done = false;
 
   render() {
     return (
       <div>
-        <webview src={this.props.data.url} ref="webview" preload="../scripts/forumWorker/preload.js" />
+        <webview src={this.props.data.url} ref="webview" preload="../../../scripts/srcJs/forumWorker/preload.js" />
       </div>
     )
   }

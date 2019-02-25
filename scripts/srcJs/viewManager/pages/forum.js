@@ -1,4 +1,5 @@
 import React from "react";
+import Reflux from "reflux";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 
@@ -11,7 +12,7 @@ import Paper from "@material-ui/core/Paper";
 
 import DocumentIcon from "mdi-material-ui/FileDocument";
 
-import db from "../../../localScripts/localDatabase/database";
+import db from "../../../../native/electron/localScripts/localDatabase/database";
 
 import testData from "../testData";
 
@@ -38,7 +39,7 @@ const styles = theme => ({
   }
 });
 
-class Forum extends React.Component {
+class Forum extends Reflux.Component {
   state = {};
 
   render() {

@@ -1,9 +1,10 @@
 import React from "react";
+import Reflux from "reflux";
 import { withStyles } from "@material-ui/core/styles";
 
 import ForumPanel from "../utils/forumPanel";
 
-import db from "../../../localScripts/localDatabase/database";
+import db from "../../../../native/electron/localScripts/localDatabase/database";
 
 import TestData from "../testData";
 
@@ -13,7 +14,7 @@ const styles = theme => ({
   }
 });
 
-class MainPage extends React.Component {
+class MainPage extends Reflux.Component {
   render() {
     const { classes } = this.props;
 
