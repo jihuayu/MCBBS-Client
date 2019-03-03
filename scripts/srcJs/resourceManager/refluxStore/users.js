@@ -2,31 +2,26 @@ import Reflux from "reflux";
 
 import db from "../../../../native/electron/localScripts/localDatabase/database";
 
-let Actions = Reflux.createActions([
-    'updateUser'
-]);
+import ActionManager from "../actionManager";
 
-class Users extends Reflux.Store {
-	constructor()
+class User extends Reflux.Store {
+	constructor(id)
 	{
-		super();
+        super();
+        this.id = id;
 		this.state = {
-            userGroups: db.get("users").value()
+            userGroups: db.get("users[" + id + "]").value()
         };
-		this.listenToMany(Actions);
+		this.listenToMany(ActionManager.createActions("user", id));
 	}
 
-	updateUserGroup(id, object){
-        let t = this.state.users;
-        t[id] = object;
-        db.set("users[" + id + "]", object).write();
+	updateUserGroup(object){
+        db.set("users[" + this.id + "]", object).write();
 
         this.setState({
-            users: t
+            users: object
         });
     }
 }
 
-Users.id = 'users';
-
-export let actions = Actions;
+export default User;

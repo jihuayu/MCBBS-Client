@@ -2,31 +2,26 @@ import Reflux from "reflux";
 
 import db from "../../../../native/electron/localScripts/localDatabase/database";
 
-let Actions = Reflux.createActions([
-    'updateRate'
-]);
+import ActionManager from "../actionManager";
 
-class Rates extends Reflux.Store {
-	constructor()
+class Rate extends Reflux.Store {
+	constructor(id)
 	{
-		super();
+        super();
+        this.id = id;
 		this.state = {
-            rates: db.get("rates").value()
+            rates: db.get("rates["+ id + "]").value()
         };
-		this.listenToMany(Actions);
+		this.listenToMany(ActionManager.createActions("rate", id));
 	}
 
-	updateRate(id, object){
-        let t = this.state.rates;
-        t[id] = object;
-        db.set("rates[" + id + "]", object).write();
+	updateRate(object){
+        db.set("rates[" + this.id + "]", object).write();
 
         this.setState({
-            rates: t
+            rates: object
         });
     }
 }
 
-Rates.id = 'rates';
-
-export let actions = Actions;
+export default Rate;

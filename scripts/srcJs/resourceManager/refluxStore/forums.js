@@ -2,31 +2,26 @@ import Reflux from "reflux";
 
 import db from "../../../../native/electron/localScripts/localDatabase/database";
 
-let Actions = Reflux.createActions([
-    'updateForum'
-]);
+import Actions from "../actions";
 
 class Forums extends Reflux.Store {
-	constructor()
+	constructor(id)
 	{
-		super();
+        super();
+        this.id = id;
 		this.state = {
-            forums: db.get("forums").value()
+            forums: db.get("forums[" + id + "]").value()
         };
-		this.listenToMany(Actions);
+		this.listenToMany(Actions.global.forums);
 	}
 
-	updateForum(id, object){
-        let t = this.state.forums;
-        t[id] = object;
-        db.set("forums[" + id + "]", object).write();
+	updateForum(object){
+        db.set("forums[" + this.id + "]", object).write();
 
         this.setState({
-            forums: t
+            forums: object
         });
     }
 }
 
-Forums.id = 'forums';
-
-export let actions = Actions;
+export default new Forums;

@@ -2,31 +2,26 @@ import Reflux from "reflux";
 
 import db from "../../../../native/electron/localScripts/localDatabase/database";
 
-let Actions = Reflux.createActions([
-    'updateThread'
-]);
+import ActionManager from "../actionManager";
 
-class Threads extends Reflux.Store {
-	constructor()
+class Thread extends Reflux.Store {
+	constructor(id)
 	{
-		super();
+        super();
+        this.id = id;
 		this.state = {
-            threads: db.get("threads").value()
+            threads: db.get("threads["+ id + "]").value()
         };
-		this.listenToMany(Actions);
+		this.listenToMany(ActionManager.createActions("thread", id));
 	}
 	
-	updateThread(id, object){
-        let t = this.state.threads;
-        t[id] = object;
-        db.set("threads[" + id + "]", object).write();
+	updateThread(object){
+        db.set("threads[" + this.id + "]", object).write();
 
         this.setState({
-            threads: t
+            threads: object
         });
     }
 }
 
-Threads.id = 'threads';
-
-export let actions = Actions;
+export default Thread;
