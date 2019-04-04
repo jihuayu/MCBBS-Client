@@ -1,11 +1,11 @@
-# MCBBS-Client (MCBBS 客户端)
+# MCBBS-Client \(MCBBS 客户端\)
 
 <div align="center">
 <a href="http://miao.su/image/HdIbf">
 <img src="http://miao.su/images/2018/12/24/447a2b32e7ec7bd5fb486.md.png" width="200" height="200">
 </a>
 </div>
-
+<br />
 <div align="center">
 <a href="https://travis-ci.com/langyo/MCBBS-Client">
 <img src="https://travis-ci.com/langyo/MCBBS-Client.svg?branch=master">
@@ -14,7 +14,7 @@
 
 正在全速开发中，请耐心等待……
 
-[wiki 主页](https://langyo.github.io/MCBBS-Client/docs/index)
+[Gitbook wiki 主页](https://mcbbs-client-developer.gitbook.io/mcbbs-client-dev/)
 
 ## 此客户端的开发模式
 
@@ -24,7 +24,7 @@
 
 后端部分的桌面端依赖 Electron，移动端依赖 Ionic。
 
-~~Electron 是电子，Ionic 是离子，Atom是原子，这些库的取名真好玩~~
+~~Electron 是电子，Ionic 是离子，这些库的取名真好玩啊。~~
 
 ## 版本说明
 
@@ -35,7 +35,8 @@
 ## 调试方式
 
 ### 桌面端（electron）
-```sh
+
+```bash
 // 安装依赖
 npm i
 // 启动文件监视
@@ -43,8 +44,10 @@ npm run watch
 // 运行
 npm run electron:start
 ```
+
 ### 移动端（ionic）
-```sh
+
+```bash
 // 安装依赖
 npm i
 // 启动监视
@@ -52,11 +55,11 @@ npm run watch
 // 构建
 npm run ionic:build
 ```
+
 ## 源码结构说明
 
-- /native - 平台相关部分代码。
-  - /electron - 以 electron 为核心开发的客户端部分。
-  - /ionic - 以 ionic 为核心开发的客户端部分。
-- /scripts - 平台无关部分代码。
-
-> P.S. 插件功能搁置中，后续再补
+* /native - 平台相关部分代码。
+  * /electron - 以 electron 为核心开发的客户端部分。
+  * /ionic - 以 ionic 为核心开发的客户端部分。
+* /scripts - 平台无关部分代码。
+* /docs - 开发者文档。

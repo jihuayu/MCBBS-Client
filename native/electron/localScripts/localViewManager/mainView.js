@@ -1,5 +1,3 @@
-import Test from "../../test/test";
-
 const events = window.require('events');
 const path = window.require('path');
 const fs = window.require('fs');
@@ -10,6 +8,7 @@ const remote = electron.remote;
 
 import React, { useCallback } from "react";
 import Reflux from "reflux";
+import { Router, Route, Link, IndexRoute, browserHistory } from 'react-router';
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import shortid from "shortid";
@@ -66,6 +65,7 @@ import DatabaseIcon from "mdi-material-ui/Database";
 
 import CustomScroll from "react-custom-scroll";
 import JsonView from "react-json-view";
+// import TitleBar from 'frameless-titlebar';
 
 import MainPageRender from "../../../../scripts/srcJs/viewManager/pages/mainPage";
 import WatchThreadRender from "../../../../scripts/srcJs/viewManager/pages/watchThread";
@@ -77,7 +77,6 @@ import ForumsRender from "../../../../scripts/srcJs/viewManager/pages/forums";
 import TestData from "../../../../scripts/srcJs/viewManager/testData";
 import pageBindScript from "../../../../scripts/srcJs/forumWorker/pageBindScript";
 import db from "../localDatabase/database";
-import reflux from "../localDatabase/reflux";
 
 const drawerWidth = 200;
 
@@ -255,6 +254,9 @@ class MainWindow extends Reflux.Component {
     try {
       return (
         <div className={classes.root}>
+          {/* <TitleBar
+            app="MCBBS Client"
+          /> */}
           <CssBaseline />
           <Drawer
             variant="permanent"
@@ -503,17 +505,20 @@ class MainWindow extends Reflux.Component {
             <Divider />
           </Drawer>
           <main className={classes.content} ref={this.mainRef}>
-            {
-              (this.state.tag === "mainPage" && <MainPageRender />) ||
-              (this.state.tag === "forums" && <ForumsRender />) || 
-              (this.state.tag === "login" && <LoginRender />) ||
-              (this.state.tag === "test" && <Test />) ||
-              (
+            {/* <Router history={browserHistory}>
+              <IndexRoute component={() => <MainPageRender />} />
+              <Route path="/" component={() => <MainPageRender />} />
+              <Route path="forums" component={() => <ForumsRender />} />
+              <Route path="login" component={() => <LoginRender />} />
+              <Route path="test" component={() => <Test />} />
+            </Router> */}
+
+            {/* (
                 <div key={this.state.tag}>
                   {tags.find(n => this.state.tag === n.key).render}
                 </div>
-              )
-            }
+              ) */}
+
           </main>
           <Dialog
             open={this.state.aboutDialog}
